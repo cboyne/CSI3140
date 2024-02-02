@@ -1,11 +1,11 @@
-p {
+a {
     background-color: blue;
     border: beige;
     color: white;
     text-align: center;
     display: inline-block;
     font-size: 30px; }
-p:hover {
+a:hover {
     background-color: purple;
     border: black;
     color: yellow;
