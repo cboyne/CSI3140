@@ -1,0 +1,30 @@
+a) Corrected code:
+
+	for(let x = 100; x >= 1; --x) {
+	    document.writeln(x);
+	}
+
+b) Corrected code:
+
+	switch (value % 2) {
+	    case 0:
+	        document.writeln("Even integer");
+	        break;
+	    case 1:
+	        document.writeln("Odd integer");
+	        break;
+	}
+
+c) Corrected code:
+
+	for (let x = 19; x >= 1; x -= 2) {
+	    document.writeln(x);
+	}
+
+d) Corrected code:
+
+	let counter = 2;
+	do {
+	    document.writeln(counter);
+	    counter += 2;
+	} while (counter <= 100);
