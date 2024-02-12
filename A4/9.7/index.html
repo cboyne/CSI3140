@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset = "utf-8">
+	<title>Calculating Sphere Volume</title>
+
+	<script>
+
+		function start() {
+			var button = document.getElementById( "calculateButton" );
+			button.addEventListener( "click", displayVolume, false );
+		}
+
+		function displayVolume() {
+			var inputField = document.getElementById( "radiusField" );
+			var radius = parseFloat( inputField.value );
+			var result = document.getElementById( "result" );
+			result.innerHTML = "Circle area is: " + circleArea( radius );
+		}
+
+		function circleArea( radius ) {
+			return Math.PI * radius * radius;
+		}
+
+		window.addEventListener( "load", start, false );
+
+	</script>
+</head>
+
+<body>
+
+	<form action = "#"> <p>
+		<label>Radius:
+			<input id = "radiusField" type = "number">
+		</label>
+		<input id = "calculateButton" type = "button" value = "Calculate"></p>
+	</form>
+	<p id = "result"></p>
+
+</body>
+
+</html>
