@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	<script type="text/javascript">
+
+		let article = ["the", "a", "one", "some", "any"]
+		let noun = ["boy", "girl", "dog", "town", "car"]
+		let verb = ["drove", "jumped", "ran", "walked", "skipped"]
+		let preposition = ["to", "from", "over", "under", "on"]
+
+		let html = "<p>Once upon a time...<br>"
+
+		for (var i = 0; i < 20; i++) {
+
+			let firstWord = article[Math.floor(Math.random() * article.length)]
+			html += firstWord.charAt(0).toUpperCase() + firstWord.slice(1)
+			html += " "
+			html += noun[Math.floor(Math.random() * noun.length)]
+			html += " "
+			html += verb[Math.floor(Math.random() * verb.length)]
+			html += " "
+			html += preposition[Math.floor(Math.random() * preposition.length)]
+			html += " "
+			html += article[Math.floor(Math.random() * article.length)]
+			html += " "
+			html += noun[Math.floor(Math.random() * noun.length)]
+			html += ". "
+		}
+
+		html += "</p><p>THE END</p>"
+		
+		document.writeln(html);
+		
+	</script>
+
+</head>
+<body></body>
+</html>
