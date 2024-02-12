@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset = "utf-8">
+	<title>Calculating Sphere Volume</title>
+</head>
+
+<body>
+
+	<p id = "num1"></p>
+	<p id = "num2"></p>
+	<p id = "num3"></p>
+
+	<script>
+
+		function getRandomInt(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		let num1 = document.getElementById("num1")
+		let num2 = document.getElementById("num2")
+		let num3 = document.getElementById("num3")
+
+		num1.innerHTML = "a: " + getRandomInt(1, 2)
+		num2.innerHTML = "b: " + getRandomInt(1, 100)
+		num3.innerHTML = "c: " + getRandomInt(0, 9)
+
+	</script>
+
+</body>
+
+</html>
