@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="text" id="inputString" placeholder="input text">
+
+
+<button onclick="submit()">Submit</button>
+
+<br>
+<textarea id="resultBox" style="border: 1px solid #000; padding: 10px; margin-top: 10px;"></textarea>
+<br>
+
+<script>
+function submit() {
+    const input = document.getElementById("inputString").value;
+
+    var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var letterCount = new Array(26).fill(0);
+
+    for (var i = 0; i < letters.length; i++)
+    {
+
+        for (var j = 0; j < input.length; j++)
+        {
+            let tmp = input.indexOf(letters.at(i), j);
+            if (tmp != -1)
+            {
+                letterCount[i] += 1;
+                j = tmp;
+            }
+            else{
+                break;
+            }
+        }
+    }
+    var result = "";
+    for (var i = 0; i < letters.length; i++)
+    {
+        if (letterCount[i] > 0)
+        {
+            result += letters[i] +": " + letterCount[i] + "\t";
+        }
+    }
+    document.getElementById("resultBox").innerText = result;
+}
+
+function letterToInt(x)
+{
+    let letter = x;
+
+    switch(letter.toLowerCase()) {
+        case 'a':
+            window.prompt("aaaa");
+            return 0;
+        case 'b':
+            return 1;
+        case 'c':
+            return 2;
+        case 'd':
+            return 3;
+        case 'e':
+            return 4;
+        case 'f':
+            return 5;
+        case 'g':
+            return 6;
+        case 'h':
+            return 7;
+        case 'i':
+            return 8;
+        case 'j':
+            return 9;
+        case 'k':
+            return 10;
+        case 'l':
+            return 11;
+        case 'm':
+            return 12;
+        case 'n':
+            return 13;
+        case 'o':
+            return 14;
+        case 'p':
+            return 15;
+        case 'q':
+            return 16;
+        case 'r':
+            return 17;
+        case 's':
+            return 18;
+        case 't':
+            return 19;
+        case 'u':
+            return 20;
+        case 'v':
+            return 21;
+        case 'w':
+            return 22;
+        case 'x':
+            return 23;
+        case 'y':
+            return 24;
+        case 'z':
+            return 25;
+        default:
+            window.prompt("ahhh");
+            return -1;
+    }
+
+}
+</script>
+
+</body>
+</html>

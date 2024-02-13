@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+        <button onclick="flip()">Toss</button>
+        <p id="result"></p>
+
+        <script>
+            function flip() {
+                let side = Math.floor(Math.random() * 2);
+                if (side == 0) {
+                    document.getElementById("result").innerText = "Tails";
+                } else {
+                    document.getElementById("result").innerText = "Heads";
+                }
+            }
+
+        </script>
+    </body>
+</html>
