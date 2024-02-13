@@ -5,17 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
     <body>
-        <button onclick="flip()">Toss</button>
-        <p id="result"></p>
+        <button onclick="toss()">Toss</button>
+        <div id="results"></div>
 
         <script>
-            function flip() {
-                let side = Math.floor(Math.random() * 2);
-                if (side == 0) {
-                    document.getElementById("result").innerText = "Tails";
+            let headsCount = 0;
+            let tailsCount = 0;
+            function flip()
+            {
+                return Math.floor(Math.random() * 2) > 0;
+            }
+            function toss() {
+                let res = flip();
+                if (res) {
+                    headsCount++;;
                 } else {
-                    document.getElementById("result").innerText = "Heads";
+                    tailsCount++;
                 }
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = `<p>Heads: ${headsCount}</p><p>Tails: ${tailsCount}</p>`;
             }
 
         </script>
