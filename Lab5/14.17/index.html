@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painting Application</title>
+<style>
+  #canvas {
+    border: 1px solid black;
+  }
+  #colorSwatch {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas" width="800" height="600"></canvas>
+
+<div>
+  R: <input type="range" id="redSlider" min="0" max="255" value="0">
+  G: <input type="range" id="greenSlider" min="0" max="255" value="0">
+  B: <input type="range" id="blueSlider" min="0" max="255" value="0">
+</div>
+
+<div id="colorSwatch"></div>
+
+<div>
+  Line Width: <input type="range" id="lineWidthSlider" min="1" max="10" value="1">
+</div>
+
+<button id="eraser">Eraser
+<button id="clear">Clear Screen</button>
+<button id="save">Save Drawing</button>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  let painting = false;
+  
+  function startPosition(e) {
+    painting = true;
+    draw(e);
+  }
+
+  function finishedPosition() {
+    painting = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!painting) return;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = color;
+
+    ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+  }
+
+  canvas.addEventListener('mousedown', startPosition);
+  canvas.addEventListener('mouseup', finishedPosition);
+  canvas.addEventListener('mousemove', draw);
+
+  const redSlider = document.getElementById('redSlider');
+  const greenSlider = document.getElementById('greenSlider');
+  const blueSlider = document.getElementById('blueSlider');
+  const colorSwatch = document.getElementById('colorSwatch');
+  const lineWidthSlider = document.getElementById('lineWidthSlider');
+  let color = `rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value})`;
+  let lineWidth = lineWidthSlider.value;
+
+  function updateColor() {
+    color = `rgb(${redSlider.value}, ${greenSlider.value}, ${blueSlider.value})`;
+    colorSwatch.style.backgroundColor = color;
+  }
+
+  function updateLineWidth() {
+    lineWidth = lineWidthSlider.value;
+  }
+
+  redSlider.addEventListener('input', updateColor);
+  greenSlider.addEventListener('input', updateColor);
+  blueSlider.addEventListener('input', updateColor);
+  lineWidthSlider.addEventListener('input', updateLineWidth);
+
+  const eraser = document.getElementById('eraser');
+  eraser.addEventListener('click', () => {
+    color = '#FFFFFF';
+  });
+
+  const clear = document.getElementById('clear');
+  clear.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  const save = document.getElementById('save');
+  save.addEventListener('click', () => {
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'my_painting.png';
+    link.click();
+  });
+</script>
+
+</body>
+</html>
