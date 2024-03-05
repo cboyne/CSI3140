@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Page Style</title>
+    <style>
+        body {
+            font-family: serif;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    
+    <label for="bg-color">Select background color:</label>
+    <input type="color" id="bg-color" name="bg-color" value="#ffffff">
+    
+    <br><br>
+    
+    <label for="font-style">Select font style:</label>
+    <select name="font-style" id="font-style">
+        <option value="serif">Serif</option>
+        <option value="sans-serif">Sans-serif</option>
+    </select>
+    
+    <br><br>
+    
+    <button id="button">Apply Styles</button>
+    
+    <script>
+    	const button = document.getElementById('button')
+
+        button.onclick = function() {
+            const bgColor = document.getElementById('bg-color').value;
+            const fontStyle = document.getElementById('font-style').value;
+            
+            document.body.style.backgroundColor = bgColor;
+            document.body.style.fontFamily = fontStyle;
+        }
+    </script>
+    
+</body>
+</html>
