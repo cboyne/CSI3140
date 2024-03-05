@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="600" height="600"></canvas>
+
+<script>
+	let canvas = document.getElementById("myCanvas");
+	let ctx = canvas.getContext("2d");
+
+	let colors = ['red', 'blue', 'black', 'yellow', 'pink']
+
+	let x = 100
+	let y = 100
+	let radius = 0
+
+	for (let i = 1; i < 6; i++) {
+		ctx.beginPath();
+		radius += 5
+		ctx.arc(x*i, y*i, radius, 0, Math.PI * 2);
+		ctx.fillStyle = colors[i-1]
+		ctx.fill()
+		ctx.stroke();
+	}
+
+	
+</script>
+
+</body>
+</html>
