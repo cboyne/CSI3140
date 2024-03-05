@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="100"></canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 5;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'gray';
+
+    
+        ctx.fillStyle = 'black';
+        ctx.font = '30px Arial';
+        ctx.fillText('HTML5 Canvas', 50, 50);
+
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+
+        ctx.fillStyle = 'black';
+        ctx.fillText('HTML5 Canvas', 50, 50);
+    </script>
+</body>
+</html>
