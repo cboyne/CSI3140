@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+#drag1 {
+    position: absolute;
+    cursor: pointer;
+}
+</style>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function startDrag(ev) {
+  
+  var offsetX = ev.clientX - ev.target.offsetLeft;
+  var offsetY = ev.clientY - ev.target.offsetTop;
+  
+  
+  ev.target.setAttribute("data-offsetX", offsetX);
+  ev.target.setAttribute("data-offsetY", offsetY);
+  
+  
+  document.addEventListener("mousemove", drag);
+}
+
+function drag(ev) {
+var draggedImg = document.getElementById("drag1");
+  
+
+  var newX = ev.clientX - parseInt(draggedImg.getAttribute("data-offsetX"));
+  var newY = ev.clientY - parseInt(draggedImg.getAttribute("data-offsetY"));
+  
+  
+  draggedImg.style.left = newX + "px";
+  draggedImg.style.top = newY + "px";
+}
+
+function endDrag(ev) {
+  document.removeEventListener("mousemove", drag);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+</head>
+<body ondrop="drop(event)" ondragover="allowDrop(event)">
+
+    <img id="drag1" src="pexels-james-wheeler-414612.jpg" draggable="true" 
+    onmousedown="startDrag(event)" onmouseup="endDrag(event)" width="336" height="69">
+
+
+
+</body>
+</html>
+

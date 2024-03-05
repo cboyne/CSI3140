@@ -23,6 +23,15 @@
     document.getElementById( "canvas" ).addEventListener( 
        "mousemove", processMouseMove, false );
  } // end function createCanvas
+
+ function clearCanvas()
+ {
+   var cells = document.querySelectorAll("#tablebody td");
+
+   cells.forEach(function(cell) {
+       cell.classList.remove("blue", "red", "white");
+   });
+ }
  
  // processes the onmousemove event
  function processMouseMove( e )
