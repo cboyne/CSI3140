@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas {
+		width: 500px;
+		height: 500px;
+	}
+</style>
+<body>
+
+    <canvas id="myCanvas" style="border:1px solid grey"></canvas>
+
+    <script>
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+
+
+    const radius = 20;
+    let angle = 0;
+
+    function draw() {
+        const centerX = c.width / 2;
+        const centerY = c.height / 2;
+
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        const x = centerX + Math.cos(angle) * (c.width / 2 - radius);
+        const y = centerY + Math.sin(angle) * (c.height / 2 - radius);
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+
+        angle += Math.PI / 90;
+
+        requestAnimationFrame(draw);
+    }
+
+        draw();
+    </script> 
+
+</body>
+</html>
