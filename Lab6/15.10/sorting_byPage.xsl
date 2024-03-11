@@ -1,5 +1,6 @@
 <?xml version = "1.0"?>
 
+
 <!-- Fig. 15.21: sorting.xsl -->
 <!-- Transformation of book information into HTML5 -->
 <xsl:stylesheet version = "1.0"                       
@@ -33,6 +34,8 @@
          <table>
 
             <xsl:for-each select = "chapters/frontMatter/*">
+               <xsl:sort select = "@pages" data-type = "number" 
+                    order = "ascending"/> 
                <tr>
                   <td>
                      <xsl:value-of select = "name()"/>
@@ -45,7 +48,7 @@
             </xsl:for-each>
 
             <xsl:for-each select = "chapters/chapter">
-               <xsl:sort select = "@number" data-type = "number" 
+               <xsl:sort select = "@pages" data-type = "number" 
                     order = "ascending"/>                        
                <tr>
                   <td>
@@ -60,7 +63,7 @@
             </xsl:for-each>
 
             <xsl:for-each select = "chapters/appendix">
-               <xsl:sort select = "@number" data-type = "text" 
+               <xsl:sort select = "@pages" data-type = "number" 
                   order = "ascending"/>                        
                <tr>
                   <td>
