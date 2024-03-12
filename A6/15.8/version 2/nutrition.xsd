@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="nutrition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string"/>
+                            <xs:element name="serving">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="size" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="calories">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="total" type="xs:integer"/>
+                                        <xs:element name="fat" type="xs:integer"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="fat">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="total" type="xs:string"/>
+                                        <xs:element name="saturated-Fat" type="xs:string"/>
+                                        <xs:element name="trans-Fat" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="cholesterol" type="xs:string"/>
+                            <xs:element name="sodium" type="xs:string"/>
+                            <xs:element name="carbohydrates">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="total" type="xs:string"/>
+                                        <xs:element name="fiber" type="xs:string"/>
+                                        <xs:element name="sugars" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="protein" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
