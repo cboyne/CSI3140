@@ -47,7 +47,7 @@
                </tr>
             </xsl:for-each>
 
-            <xsl:for-each select = "chapters/chapter">
+            <xsl:for-each select = "chapters/appendix | chapters/chapter">
                <xsl:sort select = "@pages" data-type = "number" 
                     order = "ascending"/>                        
                <tr>
@@ -62,20 +62,6 @@
                </tr>
             </xsl:for-each>
 
-            <xsl:for-each select = "chapters/appendix">
-               <xsl:sort select = "@pages" data-type = "number" 
-                  order = "ascending"/>                        
-               <tr>
-                  <td>
-                     Appendix <xsl:value-of select = "@number"/>
-                  </td>
-
-                  <td>
-                     <xsl:value-of select = "text()"/>
-                     ( <xsl:value-of select = "@pages"/> pages )
-                  </td>
-               </tr>
-            </xsl:for-each>
          </table>
 
          <p>Pages: 
