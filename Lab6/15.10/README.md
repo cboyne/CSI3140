@@ -1,1 +1,0 @@
-Please note, no transformations occured on the xml file when using Safari but the changes can be viewed at https://xslttest.appspot.com . I've also included a screenshot of the transformed html page from the website.
