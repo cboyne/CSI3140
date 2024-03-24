@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<emailList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="emails.xsd">
+
+    <email>example1@gmail.com</email>
+
+    <email>example2@gmail.com</email>
+
+    <email>example3@gmail.com</email>
+
+</emailList>
