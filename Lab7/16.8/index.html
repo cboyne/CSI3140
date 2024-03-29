@@ -36,78 +36,94 @@
 
         // if error on loading page add directory path to file variable
         getJsonData('summary.json', function(summaryData) {
-            getJsonData('thumbnail_images.json', function(thumbnailData) {
-                displayProducts(summaryData, thumbnailData);
-                getJsonData('full_images.json', function(fullImageData) {
-                    getJsonData('descriptions.json', function(descriptionsData) {
-                        updateProducts(summaryData, fullImageData, descriptionsData);
+        getJsonData('thumbnails_images.json', function(thumbnailData) {
+            displayProducts(summaryData, thumbnailData);
+            getJsonData('full_images.json', function(fullImageData) {
+                getJsonData('descriptions.json', function(descriptionsData) {
+                    updateProducts(summaryData, fullImageData, descriptionsData, thumbnailData);
+
+                    productTable.addEventListener('click', function(event) {
+                        const target = event.target;
+                        if (target.classList.contains('description-btn')) {
+                            const productId = target.getAttribute('data-id');
+                            const description = summaryData.find(product => product.id === parseInt(productId)).description;
+                            descriptionContent.textContent = description || 'Description not available.';
+                            descriptionModal.style.display = "block";
+                        }
                     });
                 });
             });
         });
+    });
 
-        function getJsonData(file, callback) {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', file, true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const data = JSON.parse(xhr.responseText);
-                        callback(data);
-                    } else {
-                        console.error('Error fetching JSON data:', xhr.status);
-                    }
+    function getJsonData(file, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', file, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    callback(data);
+                } else {
+                    console.error('Error fetching JSON data:', xhr.status);
                 }
-            };
-            xhr.send();
-        }
+            }
+        };
+        xhr.send();
+    }
 
-        function displayProducts(summaryData, thumbnailData) {
-            productBody.innerHTML = '';
-            summaryData.forEach(product => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${product.title}</td>
-                    <td><img src="${thumbnailData.find(item => item.id === product.id).image}" class="thumbnail" data-fullimage="${product.id}.jpg"></td>
-                    <td>$${product.price}</td>
-                    <td><button class="description-btn" data-id="${product.id}">Show Description</button></td>
-                `;
-                productBody.appendChild(row);
-            });
-        }
+    function displayProducts(summaryData, thumbnailData) {
+        productBody.innerHTML = '';
+        summaryData.forEach(product => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.title}</td>
+                <td><img src="${thumbnailData.find(item => item.id === product.id).image}" class="thumbnail" data-fullimage="${product.id}.jpg"></td>
+                <td>$${product.price}</td>
+                <td><button class="description-btn" data-id="${product.id}">Show Description</button></td>
+            `;
+            productBody.appendChild(row);
+        });
+    }
 
-        function updateProducts(summaryData, fullImageData, descriptionsData) {
-            summaryData.forEach(product => {
-                const fullImage = fullImageData.find(item => item.id === product.id)?.image;
-                const description = descriptionsData.find(item => item.id === product.id)?.description;
+    function updateProducts(summaryData, fullImageData, descriptionsData, thumbnailData) {
+        summaryData.forEach(product => {
+            const fullImage = fullImageData.find(item => item.id === product.id)?.image;
+            const description = descriptionsData.find(item => item.id === product.id)?.description;
+            const thumbImg = thumbnailData.find(item => item.id === product.id).image;
 
-                const thumbnailImg = productBody.querySelector(`[data-fullimage="${product.id}.jpg"]`);
-                if (fullImage) {
-                    thumbnailImg.setAttribute('data-fullimage', fullImage);
-                }
-                product.fullImage = fullImage || '';
+            const thumbnailImg = productBody.querySelector(`[data-fullimage="${product.id}.jpg"]`);
+            if (fullImage) {
+                thumbnailImg.setAttribute('data-fullimage', fullImage);
+            }
+            product.fullImage = fullImage || '';
 
-                if (description) {
-                    product.description = description;
-                }
-            });
-        }
+            if (thumbImg)
+            {
+                thumbnailImg.setAttribute('data-thumb', thumbImg);
+            }
 
-        productTable.addEventListener('mouseover', function(event) {
-            const target = event.target;
-            if (target.tagName === 'IMG') {
-                const fullImage = target.getAttribute('data-fullimage');
-                target.setAttribute('src', fullImage);
+            if (description) {
+                product.description = description;
             }
         });
+    }
 
-        productTable.addEventListener('mouseout', function(event) {
-            const target = event.target;
-            if (target.tagName === 'IMG') {
-                const thumbnailImage = target.getAttribute('data-fullimage');
-                target.setAttribute('src', thumbnailImage);
-            }
-        });
+    productTable.addEventListener('mouseover', function(event) {
+        const target = event.target;
+        if (target.tagName === 'IMG' && target.classList.contains('thumbnail')) {
+            const fullImage = target.getAttribute('data-fullimage');
+            target.setAttribute('src', fullImage);
+        }
+    });
+
+    productTable.addEventListener('mouseout', function(event) {
+        const target = event.target;
+        if (target.tagName === 'IMG' && target.classList.contains('thumbnail')) {
+            const thumbnailImage = target.getAttribute('data-thumb');
+            target.setAttribute('src', thumbnailImage);
+        }
+    });
 
         productTable.addEventListener('click', function(event) {
             const target = event.target;

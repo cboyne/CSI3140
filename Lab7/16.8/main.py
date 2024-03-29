@@ -3,7 +3,8 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 class AjaxRequestHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept')
         SimpleHTTPRequestHandler.end_headers(self)
 
 def run(server_class=HTTPServer, handler_class=AjaxRequestHandler, addr="localhost", port=8000):
