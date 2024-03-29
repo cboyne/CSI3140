@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Thumbnail</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="productBody">
+        </tbody>
+    </table>
+
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="descriptionContent"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const productTable = document.getElementById("productTable");
+        const productBody = document.getElementById("productBody");
+        const descriptionModal = document.getElementById("descriptionModal");
+        const descriptionContent = document.getElementById("descriptionContent");
+
+        // if error on loading page add directory path to file variable
+        getJsonData('summary.json', function(summaryData) {
+            getJsonData('thumbnail_images.json', function(thumbnailData) {
+                displayProducts(summaryData, thumbnailData);
+                getJsonData('full_images.json', function(fullImageData) {
+                    getJsonData('descriptions.json', function(descriptionsData) {
+                        updateProducts(summaryData, fullImageData, descriptionsData);
+                    });
+                });
+            });
+        });
+
+        function getJsonData(file, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', file, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+                        callback(data);
+                    } else {
+                        console.error('Error fetching JSON data:', xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function displayProducts(summaryData, thumbnailData) {
+            productBody.innerHTML = '';
+            summaryData.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.title}</td>
+                    <td><img src="${thumbnailData.find(item => item.id === product.id).image}" class="thumbnail" data-fullimage="${product.id}.jpg"></td>
+                    <td>$${product.price}</td>
+                    <td><button class="description-btn" data-id="${product.id}">Show Description</button></td>
+                `;
+                productBody.appendChild(row);
+            });
+        }
+
+        function updateProducts(summaryData, fullImageData, descriptionsData) {
+            summaryData.forEach(product => {
+                const fullImage = fullImageData.find(item => item.id === product.id)?.image;
+                const description = descriptionsData.find(item => item.id === product.id)?.description;
+
+                const thumbnailImg = productBody.querySelector(`[data-fullimage="${product.id}.jpg"]`);
+                if (fullImage) {
+                    thumbnailImg.setAttribute('data-fullimage', fullImage);
+                }
+                product.fullImage = fullImage || '';
+
+                if (description) {
+                    product.description = description;
+                }
+            });
+        }
+
+        productTable.addEventListener('mouseover', function(event) {
+            const target = event.target;
+            if (target.tagName === 'IMG') {
+                const fullImage = target.getAttribute('data-fullimage');
+                target.setAttribute('src', fullImage);
+            }
+        });
+
+        productTable.addEventListener('mouseout', function(event) {
+            const target = event.target;
+            if (target.tagName === 'IMG') {
+                const thumbnailImage = target.getAttribute('data-fullimage');
+                target.setAttribute('src', thumbnailImage);
+            }
+        });
+
+        productTable.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.classList.contains('description-btn')) {
+                const productId = target.getAttribute('data-id');
+                const description = summaryData.find(product => product.id === parseInt(productId)).description;
+                descriptionContent.textContent = description || 'Description not available.';
+                descriptionModal.style.display = "block";
+            }
+        });
+
+        const closeButton = document.getElementsByClassName("close")[0];
+        closeButton.addEventListener('click', function() {
+            descriptionModal.style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == descriptionModal) {
+                descriptionModal.style.display = "none";
+            }
+        });
+    });
+
+
+
+    </script>
+</body>
+</html>
